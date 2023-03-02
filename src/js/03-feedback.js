@@ -1,5 +1,8 @@
 import throttle from "lodash.throttle";
-let formData = {};
+let formData = { 
+    email: "", 
+    message: "",
+};
 const STORAGE_KEY = "feedback-form-state";
 
 const refs = {
@@ -22,7 +25,10 @@ function formSubmit(event) {
     event.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
     console.log(formData);
-    formData = {};
+    formData = { 
+        email: "", 
+        message: "",
+    };
 };
 
 function populateTextarea() {
