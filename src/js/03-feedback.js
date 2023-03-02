@@ -1,9 +1,13 @@
 import throttle from "lodash.throttle";
+import storage from "./storage";
+const { save, load } = storage;
 let formData = { 
     email: "", 
     message: "",
 };
 const STORAGE_KEY = "feedback-form-state";
+
+const formDataParse = load(STORAGE_KEY);
 
 const refs = {
     form: document.querySelector('.feedback-form'),
@@ -19,6 +23,18 @@ refs.form.addEventListener('input', throttle(e => {
 },500));
 
 populateTextarea();
+
+
+if (formDataParse) {
+    formData = formDataParse;
+    setFormValue(formData, refs.form);
+}
+
+function setFormValue(obj, form) {
+    for (const key in obj) {
+      form.elements[key].value = obj[key];
+    }
+};
 
 function formSubmit(event) {
     event.preventDefault();
